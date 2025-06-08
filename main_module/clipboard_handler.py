@@ -1,5 +1,7 @@
 import pyperclip
 import win32clipboard
+from langdetect import detect
+
 
 class ClipboardHandler:
     def __init__(self):
@@ -20,3 +22,7 @@ class ClipboardHandler:
     @staticmethod
     def paste_corrected():  # paste corrected text from clipboard
         pyperclip.paste()
+
+    @staticmethod
+    def detect_language(text):
+        return detect(text)
