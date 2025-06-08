@@ -7,10 +7,12 @@ from corrector import Corrector
 from hotkey_listener import HotkeyListener
 from logging_config import LOGGING_CONFIG
 from validator import Validator
+from notifier import Notifier
 
 clip = ClipboardHandler()
 corr = Corrector()
 v = Validator()
+n = Notifier()
 
 config = configparser.ConfigParser()
 
@@ -22,6 +24,9 @@ async def main():
     corrected_text = await corr.correct_text(text, lang_code)
 
     clip.send_corrected(corrected_text)
+
+    n.notify('Your text has been corrected & will be pasted.')
+
     clip.paste_corrected()
 
 

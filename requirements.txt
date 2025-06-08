@@ -1,0 +1,11 @@
+pywin32
+setuptools<81
+win10toast~=0.9
+pillow~=11.2.1
+pystray~=0.19.5
+language_tool_python~=2.9.4
+keyboard~=0.13.5
+PyAutoGUI~=0.9.54
+pyperclip~=1.9.0
+langdetect~=1.0.9
+language_tool_python~=2.9.4

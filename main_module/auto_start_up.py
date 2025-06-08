@@ -14,7 +14,7 @@ class AutoStartUp:
     def set_auto_startup(self):
         if not os.path.exists(self.app_path):
             logging.error("File not found. AutoStartUp is not set.")
-            return "File not found"
+            return False
 
         logging.debug("Setting AutoStartUp...")
         # vbs code to create a shortcut for .exe
@@ -34,6 +34,7 @@ class AutoStartUp:
         os.system(f'cscript //nologo "{temp_vbs}"')
 
         os.remove(temp_vbs)
+        return True
 
     def remove_auto_startup(self):
         logging.debug("Removing AutoStartUp...")
