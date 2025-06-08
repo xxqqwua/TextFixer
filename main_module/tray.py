@@ -4,8 +4,8 @@ import threading
 from PIL import Image, ImageDraw
 from pystray import Icon, Menu, MenuItem as Item
 
-from auto_start_up import AutoStartUp
-from validator import Validator
+from main_module.auto_start_up import AutoStartUp
+from main_module.validator import Validator
 
 ASUp = AutoStartUp()
 AutoStartUp_is_set = ASUp.check_auto_startup()

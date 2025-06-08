@@ -2,12 +2,12 @@ import asyncio
 import configparser
 import logging
 
-from clipboard_handler import ClipboardHandler
-from corrector import Corrector
-from hotkey_listener import HotkeyListener
-from logging_config import LOGGING_CONFIG
-from notifier import Notifier
-from validator import Validator
+from main_module.clipboard_handler import ClipboardHandler
+from main_module.corrector import Corrector
+from main_module.hotkey_listener import HotkeyListener
+from main_module.logging_config import LOGGING_CONFIG
+from main_module.notifier import Notifier
+from main_module.validator import Validator
 
 clip = ClipboardHandler()
 corr = Corrector()
@@ -36,7 +36,7 @@ def hotkey_callback():
 
 
 if __name__ == '__main__':
-    import tray  # script
+    import main_module.tray  # script
 
     logging.config.dictConfig(LOGGING_CONFIG)
     v.validate_settings_file()
