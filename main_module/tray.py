@@ -5,6 +5,7 @@ from PIL import Image, ImageDraw
 from pystray import Icon, Menu, MenuItem as Item
 
 from auto_start_up import AutoStartUp
+from validator import Validator
 
 ASUp = AutoStartUp()
 AutoStartUp_is_set = ASUp.check_auto_startup()
@@ -59,12 +60,24 @@ def set_auto_start_up():
         AutoStartUp_is_set = True
 
 
+def open_settings():
+    v = Validator()
+    v.validate_settings_file()
+    settings_file_path = v.settings_path
+
+    try:
+        os.startfile(settings_file_path)
+    except Exception:
+        pass
+
+
 menu = Menu(
     Item('AutoStartUp', set_auto_start_up, checked=lambda i: ASUp.check_auto_startup()),
     # Double display for AutoStartUP in logs is normal:
     # The first time is when the menu is just being built: you need to understand which items are checked.
     # The second time is when the menu is actually shown to the user, to update the state
     # (in case something changed between opening and rendering).
+    Item('Open Settings', open_settings),
     Item('Exit', on_quit)
 )
 
