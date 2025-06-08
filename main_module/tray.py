@@ -4,6 +4,11 @@ import threading
 from PIL import Image, ImageDraw
 from pystray import Icon, Menu, MenuItem as Item
 
+from auto_start_up import AutoStartUp
+
+ASUp = AutoStartUp()
+AutoStartUp_is_set = ASUp.check_auto_startup()
+
 
 def on_quit():
     icon.stop()
@@ -43,8 +48,19 @@ def generate_icon_image():
     return image
 
 
+def set_auto_start_up():
+    global AutoStartUp_is_set
+
+    if AutoStartUp_is_set:
+        AutoStartUp.remove_auto_startup()
+        AutoStartUp_is_set = False
+    else:
+        AutoStartUp.set_auto_startup()
+        AutoStartUp_is_set = True
+
+
 menu = Menu(
-    # Item('AutoStartUp', set_auto_start_up, checked=lambda i: AutoStartUp.check_autostartup()),
+    Item('AutoStartUp', set_auto_start_up, checked=lambda i: ASUp.check_auto_startup()),
     # Double display for AutoStartUP in logs is normal:
     # The first time is when the menu is just being built: you need to understand which items are checked.
     # The second time is when the menu is actually shown to the user, to update the state
