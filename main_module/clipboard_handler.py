@@ -1,8 +1,7 @@
 import logging
 
-import pyautogui
+import keyboard
 import pyperclip
-import win32clipboard
 from langdetect import detect
 
 
@@ -12,9 +11,7 @@ class ClipboardHandler:
 
     @staticmethod
     def get_clipboard():  # get clipboard data
-        win32clipboard.OpenClipboard()
-        data = win32clipboard.GetClipboardData()
-        win32clipboard.CloseClipboard()
+        data = pyperclip.paste()
 
         logging.debug(f'Got clipboard data: {data}')
         return data
@@ -26,7 +23,7 @@ class ClipboardHandler:
 
     @staticmethod
     def paste_corrected():  # paste corrected text from clipboard
-        pyautogui.hotkey('ctrl', 'v')
+        keyboard.press_and_release('ctrl+v')
         logging.debug('paste corrected text from clipboard')
 
     @staticmethod
