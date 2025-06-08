@@ -6,8 +6,8 @@ from clipboard_handler import ClipboardHandler
 from corrector import Corrector
 from hotkey_listener import HotkeyListener
 from logging_config import LOGGING_CONFIG
-from validator import Validator
 from notifier import Notifier
+from validator import Validator
 
 clip = ClipboardHandler()
 corr = Corrector()
@@ -25,7 +25,8 @@ async def main():
 
     clip.send_corrected(corrected_text)
 
-    n.notify('Your text has been corrected & will be pasted.')
+    if IS_NOTIFY_ENABLED:
+        n.notify('Your text has been corrected & will be pasted.')
 
     clip.paste_corrected()
 
@@ -42,6 +43,7 @@ if __name__ == '__main__':
 
     config.read(v.settings_path, encoding="utf-8")
     HOTKEY = config.get("Hotkeys", "correct_text", fallback="ctrl+q+g")
+    IS_NOTIFY_ENABLED = config.getboolean("General", "enable_notifications", fallback=True)
 
     HL = HotkeyListener(hotkey_callback, HOTKEY)
     HL.start()
