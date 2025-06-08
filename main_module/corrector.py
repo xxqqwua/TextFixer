@@ -1,4 +1,5 @@
 import asyncio
+import logging
 
 import language_tool_python
 from language_tool_python import utils
@@ -24,15 +25,17 @@ class Corrector:
 
     async def correct_text(self, text, lang_code):
         lang_code = self.LANG_CODE_MAP.get(lang_code)
+        logging.debug(f'lang_code: {lang_code}')
 
         if not lang_code:
             return text
 
         def run_check():
-            tool = language_tool_python.LanguageTool(lang_code)
-            matches = tool.check(text)
-            corrected_text = utils.correct(text, matches)
-            return corrected_text
+            with language_tool_python.LanguageTool(lang_code) as tool:
+                matches = tool.check(text)
+                corrected_text = utils.correct(text, matches)
+                logging.debug(f'corrected_text: {corrected_text}')
+                return corrected_text
 
         corrected_text = await asyncio.to_thread(run_check)
         return corrected_text
