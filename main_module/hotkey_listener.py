@@ -3,7 +3,7 @@ import logging
 
 
 class HotkeyListener:
-    def __init__(self, func, hotkey: str = 'ctrl+q+g', callback=None):
+    def __init__(self, func, hotkey: str, callback=None):
         self.hotkey = hotkey
         self.callback = callback
         self.func = func
