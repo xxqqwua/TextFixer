@@ -30,6 +30,8 @@ def hotkey_callback():
 
 
 if __name__ == '__main__':
+    import tray  # script
+
     logging.config.dictConfig(LOGGING_CONFIG)
     v.validate_settings_file()
 
