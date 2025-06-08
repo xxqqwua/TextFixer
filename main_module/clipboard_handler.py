@@ -20,13 +20,6 @@ class ClipboardHandler:
         return data
 
     @staticmethod
-    def get_text_to_clipboard():
-        pyautogui.hotkey('ctrl', 'a')
-        logging.debug('Hotkey "ctrl+a" is pressed')
-        pyautogui.hotkey('ctrl', 'c')
-        logging.debug('Hotkey "ctrl+c" is pressed')
-
-    @staticmethod
     def send_corrected(text):  # send corrected text to clipboard
         pyperclip.copy(text)
         logging.debug(f'Send corrected text to clipboard: {text}')

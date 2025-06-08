@@ -11,6 +11,11 @@ class Validator:
         self.documents_path = None
         self.app_folder_path = None
         self.settings_path = None
+        self.settings_default_text = """[General]
+enable_notifications = true
+
+[Hotkeys]
+correct_text = ctrl+q+g"""
 
     def create_folder(self):
         for folder in self.possible_docs_folders:
@@ -41,6 +46,6 @@ class Validator:
 
         if not os.path.exists(self.settings_path):
             with open(self.settings_path, 'w') as f:
-                f.write('[General]\nenable_notifications = true\n\n[Hotkeys]\ncorrect_text = ctrl+q+g')
+                f.write(self.settings_default_text)
 
         return True
