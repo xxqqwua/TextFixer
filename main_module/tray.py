@@ -53,10 +53,10 @@ def set_auto_start_up():
     global AutoStartUp_is_set
 
     if AutoStartUp_is_set:
-        AutoStartUp.remove_auto_startup()
+        ASUp.remove_auto_startup()
         AutoStartUp_is_set = False
     else:
-        AutoStartUp.set_auto_startup()
+        ASUp.set_auto_startup()
         AutoStartUp_is_set = True
 
 
