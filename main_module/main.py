@@ -26,7 +26,7 @@ async def main():
         clip.send_corrected(corrected_text)
 
         if IS_NOTIFY_ENABLED:
-            n.notify('Your text has been corrected & will be pasted.')
+            n.notify('Your text has been corrected & will be pasted!')
 
         if IS_NOTIFY_SOUND_ENABLED:
             n.sound_notify(str(sound_path))
@@ -36,6 +36,10 @@ async def main():
 
     except Exception as e:
         logging.exception(f'Something went wrong: \n{e}')
+
+        if IS_NOTIFY_ENABLED:
+            n.notify('Something went wrong. Try another text!')
+
         if IS_NOTIFY_SOUND_ENABLED:
             n.sound_notify(str(bad_sound_path))
 
