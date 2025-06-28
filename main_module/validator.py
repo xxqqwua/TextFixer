@@ -2,6 +2,8 @@ import logging
 import os
 from pathlib import Path
 
+import requests
+
 
 class Validator:
     def __init__(self):
@@ -11,8 +13,14 @@ class Validator:
         self.documents_path = None
         self.app_folder_path = None
         self.settings_path = None
+        self.sound_path = None
+        self.bad_sound_path = None
+        self.sound_url = 'https://raw.githubusercontent.com/xxqqwua/TextFixer/refs/heads/master/src/sound.mp3'
+        self.bad_sound_url = 'https://raw.githubusercontent.com/xxqqwua/TextFixer/refs/heads/master/src/bad_sound.mp3'
         self.settings_default_text = """[General]
-enable_notifications = true
+enable_windows_notifications = true
+enable_notifications_sound = true
+enable_paste_after_success = true
 
 [Hotkeys]
 correct_text = ctrl+q+g"""
@@ -49,3 +57,21 @@ correct_text = ctrl+q+g"""
                 f.write(self.settings_default_text)
 
         return True
+
+    def validate_sound_file(self):
+        self.create_folder()
+
+        self.sound_path = self.app_folder_path / 'sound.mp3'
+        self.bad_sound_path = self.app_folder_path / 'bad_sound.mp3'
+
+        def download_sounds(url, path):
+            r = requests.get(url)
+
+            with open(path, 'wb') as file:
+                file.write(r.content)
+
+        if not os.path.exists(self.sound_path):
+            download_sounds(self.sound_url, self.sound_path)
+
+        if not os.path.exists(self.bad_sound_path):
+            download_sounds(self.bad_sound_url, self.bad_sound_path)
