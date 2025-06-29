@@ -10,13 +10,18 @@ class Validator:
         self.folder_name = "TextFixer"
         self.home_dir = Path.home()
         self.possible_docs_folders = ["Documents", "Документы"]  # may vary depending on the language of the system
+
         self.documents_path = None
         self.app_folder_path = None
         self.settings_path = None
         self.sound_path = None
         self.bad_sound_path = None
+        self.intermediate_sound_path = None
+
         self.sound_url = 'https://raw.githubusercontent.com/xxqqwua/TextFixer/refs/heads/master/src/sound.mp3'
         self.bad_sound_url = 'https://raw.githubusercontent.com/xxqqwua/TextFixer/refs/heads/master/src/bad_sound.mp3'
+        self.intermediate_sound_url = 'https://raw.githubusercontent.com/xxqqwua/TextFixer/refs/heads/master/src/intermediate_sound.mp3'
+
         self.settings_default_text = """[General]
 enable_windows_notifications = true
 enable_notifications_sound = true
@@ -63,15 +68,22 @@ correct_text = ctrl+q+g"""
 
         self.sound_path = self.app_folder_path / 'sound.mp3'
         self.bad_sound_path = self.app_folder_path / 'bad_sound.mp3'
+        self.intermediate_sound_path = self.app_folder_path / 'intermediate_sound.mp3'
 
         def download_sounds(url, path):
-            r = requests.get(url)
+            try:
+                r = requests.get(url)
 
-            with open(path, 'wb') as file:
-                file.write(r.content)
+                with open(path, 'wb') as file:
+                    file.write(r.content)
+            except Exception as e:
+                logging.error(f"Error downloading sound: {e}")
 
         if not os.path.exists(self.sound_path):
             download_sounds(self.sound_url, self.sound_path)
 
         if not os.path.exists(self.bad_sound_path):
             download_sounds(self.bad_sound_url, self.bad_sound_path)
+
+        if not os.path.exists(self.intermediate_sound_path):
+            download_sounds(self.intermediate_sound_url, self.intermediate_sound_path)
